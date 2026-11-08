@@ -1,0 +1,93 @@
+"""Quince expresiones contextualizadas por tema."""
+DATA = [
+('saludos','Saludos','A1','Hola.|Buenos días.|Buenas tardes.|Buenas noches.|¿Cómo estás?|Estoy bien, gracias.|¿Y tú?|Me llamo Ana.|Mucho gusto.|Encantado de conocerte.|¿De dónde eres?|Soy de Brasil.|Vivo en Madrid.|¿Cómo te llamas?|Bienvenido a nuestra clase.'),
+('despedidas','Despedidas','A1','Adiós.|Hasta luego.|Hasta mañana.|Nos vemos pronto.|Que tengas un buen día.|Que descanses.|Cuídate mucho.|Hasta la próxima.|Fue un placer hablar contigo.|Tengo que irme.|Nos vemos el lunes.|Buenas noches, hasta mañana.|Gracias por venir.|Seguimos en contacto.|Te escribo más tarde.'),
+('sentimientos','Sentimientos','A1','Estoy contenta.|Me siento bien.|Estoy un poco triste.|Hoy estoy cansado.|Tengo sueño.|Estoy nerviosa.|Me siento tranquilo.|Tengo mucha ilusión.|Estoy preocupada.|¿Cómo te sientes?|Necesito descansar.|Me alegro de verte.|Hoy me siento mejor.|Gracias por escucharme.|¿Quieres hablar de ello?'),
+('trabajo','Trabajo','B1','¿A qué hora empieza la reunión?|Quisiera presentar una propuesta.|¿Podemos revisar los objetivos?|Necesito aclarar una duda.|Estoy de acuerdo con tu idea.|Tengo otra sugerencia.|¿Cuál es el plazo de entrega?|Voy a preparar el informe.|¿Puedes enviarme el documento?|Propongo repartir las tareas.|Tenemos que priorizar este proyecto.|¿Quién se encarga del presupuesto?|Me gustaría recibir tu opinión.|Podríamos reunirnos el jueves.|Gracias por tu colaboración.'),
+('restaurante','Restaurante','A2','Tenemos una reserva para dos.|¿Nos trae la carta, por favor?|¿Cuál es el plato del día?|Soy alérgico a los frutos secos.|¿Este plato lleva leche?|Quisiera una opción vegetariana.|Para mí, una sopa.|¿Puede traer un poco de agua?|La carne está demasiado fría.|¿Podría cambiar este plato?|Todo estaba delicioso.|¿Tienen postres caseros?|Un café sin azúcar, por favor.|La cuenta, por favor.|¿Podemos pagar por separado?'),
+('cafeteria','Cafetería','A1','Un café, por favor.|Quisiera un café con leche.|¿Tiene leche vegetal?|Sin azúcar, por favor.|Para llevar.|Para tomar aquí.|Una tostada con tomate.|¿Cuánto cuesta el té?|Quiero un vaso de agua.|¿Hay una mesa libre?|¿Puedo sentarme aquí?|Un zumo de naranja.|¿Aceptan tarjeta?|¿Me da un recibo?|Muchas gracias, hasta luego.'),
+('alfabeto','Alfabeto','A1','A, de avión.|B, de barco.|C, de casa.|D, de dedo.|E, de escuela.|F, de familia.|G, de gato.|H, de hotel; la hache no suena.|I, de isla.|J, de jardín.|K, de kilo.|L, de libro.|M, de mano.|N, de noche.|Ñ, de ñandú; O, P, Q, R, S, T, U, V, W, X, Y, Z.'),
+('numeros','Números','A1','Uno, dos, tres.|Cuatro, cinco, seis.|Siete, ocho, nueve.|Diez, once, doce.|Trece, catorce, quince.|Dieciséis, diecisiete, dieciocho.|Diecinueve, veinte.|Veintiuno, veintidós, veintitrés.|Treinta, cuarenta, cincuenta.|Sesenta, setenta, ochenta.|Noventa y cien.|Ciento uno y ciento veinte.|Doscientos y trescientos.|Mil y dos mil.|Cuesta quince euros con cincuenta.'),
+('paises','Países','A1','España está en Europa.|México está en América del Norte.|Argentina está en América del Sur.|Colombia tiene costas en dos océanos.|Perú tiene una gran diversidad cultural.|Chile es un país largo y estrecho.|Ecuador está cerca de la línea ecuatorial.|Bolivia tiene varios idiomas oficiales.|Paraguay tiene dos idiomas oficiales.|Uruguay limita con Brasil.|Venezuela está al norte de América del Sur.|Costa Rica está en América Central.|Cuba es una isla del Caribe.|Guatemala está al sur de México.|Guinea Ecuatorial está en África.'),
+('nacionalidades','Nacionalidades','A1','Soy española.|Él es mexicano.|Ella es argentina.|Somos colombianos.|Mi amiga es peruana.|Mi compañero es chileno.|Son ecuatorianas.|Mi profesora es boliviana.|Mi vecino es paraguayo.|Ella es uruguaya.|Él es venezolano.|Soy costarricense.|Mi familia es cubana.|Mi colega es guatemalteco.|Soy brasileño y estudio español.'),
+('cultura','Cultura','B1','Me interesa conocer las costumbres locales.|¿Cómo se celebra esta fiesta?|¿Qué significa esta tradición?|Quisiera visitar un museo de historia.|La gastronomía forma parte de la cultura.|Cada región tiene sus propias expresiones.|¿Qué me recomiendas leer?|Me gustaría conocer artistas de aquí.|¿Hay una exposición esta semana?|Es importante respetar las diferencias.|No todas las personas comparten las mismas costumbres.|¿Podrías explicarme el contexto?|Esta historia se transmite entre generaciones.|La diversidad lingüística es una riqueza.|¿Qué tradición te gustaría compartir?'),
+('musica','Música','A2','¿Qué música te gusta?|Me gusta escuchar salsa.|Prefiero la música en directo.|¿Quién canta esta canción?|¿Cómo se llama el grupo?|La letra habla de amistad.|¿Puedes repetir el estribillo?|Toco la guitarra.|Estoy aprendiendo a cantar.|¿Vamos a un concierto?|Las entradas están agotadas.|Esta canción tiene mucho ritmo.|Voy a compartir una lista contigo.|¿Conoces a esta cantante?|¿Qué canción me recomiendas?'),
+('cine','Cine','A2','¿Qué película quieres ver?|Me gustan las comedias.|Prefiero una película de aventuras.|¿A qué hora empieza la sesión?|Dos entradas, por favor.|¿Tiene subtítulos en español?|Quisiera sentarme en el centro.|¿Quién es la directora?|El protagonista cambia al final.|No me cuentes el desenlace.|La historia está basada en una novela.|La fotografía me pareció excelente.|¿Qué opinas de la actuación?|La película me hizo pensar.|¿La recomendarías?'),
+('invitaciones','Invitar a salir','A2','¿Te apetece salir el sábado?|¿Quieres tomar un café conmigo?|Podemos ir a dar un paseo.|¿A qué hora te viene bien?|¿Dónde quedamos?|Nos vemos frente al cine.|Me encantaría ir.|Gracias por invitarme.|Hoy no puedo, lo siento.|¿Qué tal el domingo?|Prefiero quedar por la tarde.|¿Te parece a las seis?|Voy a llegar diez minutos tarde.|Avísame cuando llegues.|Lo he pasado muy bien.'),
+('fiesta','Fiesta con amigos','A2','Vamos a organizar una fiesta.|¿A quién invitamos?|¿Qué puedes traer?|Yo preparo la comida.|¿Hay opciones sin alcohol?|¿Alguien tiene alguna alergia?|La fiesta empieza a las ocho.|Te envío la dirección.|¿Ponemos algo de música?|¿Quieres bailar?|Vamos a bajar un poco el volumen.|¿Necesitas que te acompañe?|¿Cómo vas a volver a casa?|Ayudemos a recoger.|Gracias por venir, nos vemos pronto.'),
+('pedidos','Pedir algo','A1','¿Me ayudas, por favor?|¿Me prestas un bolígrafo?|Quisiera hacer una pregunta.|¿Puedes repetirlo?|Más despacio, por favor.|¿Me das un vaso de agua?|Necesito un poco de tiempo.|¿Puedo abrir la ventana?|¿Me permite pasar?|¿Puedes escribirlo?|¿Dónde puedo comprar un billete?|¿Tienes un cargador?|¿Me explicas esta palabra?|¿Podría cambiar de asiento?|Muchas gracias por tu ayuda.'),
+('direcciones','Direcciones','A2','Disculpe, ¿dónde está la estación?|Siga recto.|Gire a la derecha.|Gire a la izquierda.|Cruce la calle por el paso de peatones.|El museo está al lado del parque.|La farmacia está enfrente del banco.|Tome la segunda calle.|Está a diez minutos a pie.|¿Hay una parada de autobús cerca?|¿Qué línea debo tomar?|Baje en la próxima parada.|¿Voy en la dirección correcta?|Puede verlo al fondo de la calle.|Gracias por indicarme el camino.')]
+DATA += [
+('trabajo_avanzado','Trabajo: negociación','B2','Convendría reconsiderar el plazo.|Entiendo tu postura, aunque discrepo en este punto.|¿Qué margen de negociación tenemos?|Si ajustáramos el presupuesto, podríamos avanzar.|Quisiera matizar lo que acabas de decir.|No se trata solo del coste, sino de la calidad.|¿En qué datos se basa esta estimación?|Propongo que fijemos criterios verificables.|Demos prioridad a los riesgos más probables.|¿Cómo podríamos conciliar ambas propuestas?|El acuerdo está sujeto a la aprobación del equipo.|Agradecería que concretaras los siguientes pasos.|Podemos aceptar esa condición siempre que sea recíproca.|Dejemos constancia de los compromisos asumidos.|Revisaremos los resultados antes de renovar el acuerdo.'),
+('cultura_debate','Cultura: debate y matices','C1','Conviene distinguir entre una costumbre y un estereotipo.|La interpretación depende del contexto histórico.|No daría por sentado que todos compartan esa visión.|Me parece una lectura sugerente, si bien incompleta.|¿Hasta qué punto influye la memoria colectiva?|El argumento adolece de una generalización excesiva.|Cabe preguntarse quién queda fuera de ese relato.|La diversidad no excluye la existencia de referentes comunes.|Por convincente que resulte, merece contrastarse.|Quisiera aportar un contrapunto a esa interpretación.|El patrimonio también se transforma con sus comunidades.|La cuestión no puede reducirse a una sola causa.|De ahí que sea necesario escuchar otras voces.|La conclusión requiere más matices de los que parece.|Podríamos retomar el debate desde otra perspectiva.'),
+('cine_critica','Cine: crítica e interpretación','C2','La aparente sencillez del relato encubre una estructura compleja.|El narrador deja entrever más de lo que afirma.|El desenlace rehúye toda complacencia.|La ironía socava la solemnidad de la escena.|El silencio del personaje admite lecturas contrapuestas.|La puesta en escena desmiente el discurso del protagonista.|La película oscila entre la sátira y la elegía.|Ese detalle cobra sentido retrospectivamente.|La ambigüedad no es gratuita: sostiene el conflicto.|El guion convierte una anécdota en una reflexión moral.|Su pretendida neutralidad resulta deliberadamente incómoda.|La elipsis obliga al espectador a reconstruir lo ocurrido.|El homenaje roza la parodia sin confundirse con ella.|La crítica apunta tanto al personaje como a quien lo juzga.|Lo que parecía un cierre abre, en realidad, otra pregunta.')]
+EXTRA_SALUDOS='¿Qué tal?|¿Cómo va todo?|¿Cómo te encuentras?|¿Qué tal estás?|¿Cómo estás vos?|Todo bien, ¿y vos?|Bien, gracias, ¿y tú?|Muy bien, gracias.|Estoy fenomenal.|Estoy genial.|Estoy de maravilla.|Todo marcha bien.|No me puedo quejar.|Voy tirando.|Más o menos.|Así así.|Regular, gracias.|Hoy no estoy muy bien.|Estoy mal.|Me encuentro fatal.'
+EXTRA_SENTIMIENTOS='Estoy bastante bien.|Estoy estupendamente.|Me siento de maravilla.|Estoy mejor que ayer.|Estoy de buen humor.|Todo en orden.|No estoy mal.|Podría estar mejor.|Voy mejorando.|No me puedo quejar.|Ni bien ni mal.|Estoy así así.|Estoy regular.|Más o menos, gracias.|Ahí vamos.|Voy tirando.|No estoy para muchas fiestas.|Estoy de bajón.|Me encuentro fatal.|Estoy hecho polvo.|Hoy no es mi día.|Necesito un poco de ánimo.|Todo bien, ¿y vos?|Ando bien, gracias.|Ando medio cansado.|Estoy bárbaro.|Todo tranquilo por acá.|Me siento mal.|Estoy de mal humor.|Gracias por preguntar.'
+PROMPTS={
+'saludos':['¿Qué dos saludos escuchaste? Escribe cuándo los usarías.','Responde a «¿Cómo estás?» de tres maneras: bien, regular y mal.','Escribe un saludo formal de España y uno informal con vos de Argentina.'],
+'despedidas':['Escribe dos despedidas del audio.','¿Qué dirías al terminar una clase por la noche?','Crea un diálogo breve que termine con una despedida adecuada.'],
+'sentimientos':['Clasifica seis expresiones: bienestar, estado intermedio y malestar.','Responde a «¿Cómo te sientes?» usando «así así», «fatal» y una expresión positiva.','Crea un diálogo en el que preguntes cómo está otra persona y ofrezcas apoyo.'],
+'alfabeto':['Escribe tu nombre y deletréalo letra por letra. Después practícalo en voz alta.','Escribe tu apellido o tus apellidos y deletréalos.','Elige dos apellidos frecuentes en tu país o en tu entorno, escríbelos y deletréalos.'],
+'numeros':['Escribe con palabras tres números que hayas escuchado.','Di tu edad y escribe un número de teléfono inventado con palabras.','Imagina una compra: escribe el precio y cómo lo dirías al pagar.'],
+'paises':['Nombra tres países mencionados en el audio.','Escribe de qué país eres y qué país te gustaría visitar.','Prepara tres preguntas para conocer el país de origen de otra persona.'],
+'nacionalidades':['Relaciona tres países del audio con sus nacionalidades.','Escribe tu nacionalidad y la de dos personajes inventados.','Presenta a una persona indicando nombre, país y nacionalidad.'],
+'trabajo':['¿Qué expresiones del audio sirven para proponer una reunión?','Escribe una petición formal para solicitar un documento.','Crea cuatro turnos para negociar una fecha de entrega.'],
+'restaurante':['Identifica una expresión para pedir la carta y otra para pedir la cuenta.','Pide un plato e informa de una preferencia o alergia imaginaria.','Crea un diálogo para resolver un problema con un pedido.'],
+'cafeteria':['Escribe dos pedidos que escuchaste.','Pide una bebida indicando cómo la quieres y si es para llevar.','Crea una conversación en la que preguntes el precio y pagues.'],
+'cultura':['Escribe dos preguntas del audio sobre costumbres.','Describe una tradición de tu comunidad sin generalizar a todas las personas.','Prepara un diálogo para preguntar por una tradición de otro país.'],
+'musica':['Identifica una pregunta para recomendar música.','Recomienda una canción y explica por qué te gusta.','Crea una invitación a un concierto con fecha y lugar.'],
+'cine':['¿Qué frase del audio evita que te cuenten el final?','Recomienda una película e indica su género.','Escribe un diálogo para elegir una película con otra persona.'],
+'invitaciones':['Escribe una expresión para aceptar y otra para rechazar una invitación.','Invita a una persona a salir e indica hora y lugar.','Responde que no puedes y propón otra fecha.'],
+'fiesta':['Identifica dos preguntas para organizar una fiesta.','Explica qué llevarías a una reunión con amigos.','Crea un diálogo para repartir tareas y acordar cómo volver a casa.'],
+'pedidos':['Escribe dos peticiones corteses que escuchaste.','Pide ayuda de manera formal y después informal.','Crea un diálogo para pedir que te expliquen una palabra.'],
+'direcciones':['Escribe las expresiones para girar a la derecha y a la izquierda.','Explica cómo llegar de tu casa a un lugar cercano sin indicar tu dirección exacta.','Crea un diálogo para preguntar por una parada de autobús.'],
+'trabajo_avanzado':['Identifica dos expresiones para matizar o negociar.','Plantea una objeción cortés a un plazo de entrega.','Negocia dos condiciones y redacta un acuerdo breve.'],
+'cultura_debate':['Explica una expresión que introduzca un contrapunto.','Contrasta dos interpretaciones de una tradición sin recurrir a estereotipos.','Construye un intercambio con concesión, argumento y conclusión matizada.'],
+'cine_critica':['Explica el sentido de una expresión de crítica cinematográfica.','Analiza cómo una escena podría transmitir una idea sin decirla explícitamente.','Escribe un diálogo crítico con dos interpretaciones y una conclusión abierta.']}
+AUDIO_TRACKS=[]
+for i,t,l,phrases in DATA:
+    if i=='saludos':phrases+='|'+EXTRA_SALUDOS
+    if i=='sentimientos':phrases+='|'+EXTRA_SENTIMIENTOS
+    AUDIO_TRACKS.append(dict(id=i,title=t,level=l,description=f'Escucha y practica: {t.lower()}.',phrases=[[p.strip(),p.strip()] for p in phrases.split('|')],questions=PROMPTS[i]))
+assert all(len(t['phrases'])>=15 for t in AUDIO_TRACKS)
+
+GRAMMAR=[
+dict(id='ser',level='A1',prompt='Completa: Yo ___ de Brasil.',answer='soy',explanation='Ser expresa el origen: yo soy de Brasil.'),
+dict(id='estar',level='A1',prompt='Completa: La estación ___ cerca.',answer='está',explanation='Estar expresa ubicación.'),
+dict(id='tener',level='A1',prompt='Completa: Nosotros ___ veinte años.',answer='tenemos',explanation='La edad se expresa con tener: nosotros tenemos.'),
+dict(id='pasado',level='A2',prompt='Completa: Ayer yo ___ al cine. (ir)',answer='fui',explanation='Fui es el pretérito de ir en primera persona.'),
+dict(id='gusta',level='A2',prompt='Completa: Me ___ las películas.',answer='gustan',explanation='Gustar concuerda con las películas, plural.'),
+dict(id='deseo',level='B1',prompt='Completa: Espero que tú ___ bien. (estar)',answer='estés',explanation='Espero que expresa un deseo y pide subjuntivo.'),
+dict(id='condicional',level='B1',prompt='Completa: Si tuviera tiempo, yo ___ más. (viajar)',answer='viajaría',explanation='Una hipótesis con tuviera se combina con el condicional.'),
+dict(id='concesion',level='B2',prompt='Completa: Por mucho que tú ___, no lo convencerás. (insistir)',answer='insistas',explanation='La concesión hipotética emplea subjuntivo.'),
+dict(id='consecuencia',level='C1',prompt='Completa: De ahí que ___ necesario revisarlo. (ser)',answer='sea',explanation='De ahí que introduce una consecuencia con subjuntivo.'),
+dict(id='matiz',level='C2',prompt='Completa: No es que no ___, es que no quiero. (poder, yo)',answer='pueda',explanation='No es que rechaza una explicación y lleva subjuntivo.')]
+
+# Catálogo por nivel: situaciones y vocabulario del itinerario editorial.
+from content import LESSONS as _LESSONS
+for _level in ('A1','A2','B1','B2','C1','C2'):
+    _lessons=[l for l in _LESSONS if l['level']==_level]
+    for _mode in ('situacion','vocabulario'):
+        for _lesson in _lessons:
+            if sum(t['level']==_level for t in AUDIO_TRACKS)>=50:break
+            _vocab=_mode=='vocabulario'
+            _phrases=([[a,b] for a,b in _lesson['vocabulary']] if _vocab else [[text,text] for _,text in _lesson['dialogue']])
+            _support=[text for _,text in _lesson['dialogue']]+[text for pair in _lesson['vocabulary'] for text in pair]+[q['options'][q['answer']] for q in _lesson['questions']]
+            _support += [f'Explica el significado de esta expresión: {a}.' for a,b in _lesson['vocabulary']]
+            _support += [f'Ahora crea tu propio ejemplo con: {a}.' for a,b in _lesson['vocabulary']]
+            for _text in _support:
+                if len(_phrases)>=15:break
+                if not any(pair[0]==_text for pair in _phrases):_phrases.append([_text,_text])
+            AUDIO_TRACKS.append(dict(id='tema_'+_mode+'_'+_lesson['id'],level=_level,
+                title=_lesson['title']+(' · Vocabulario en contexto' if _vocab else ' · Situación comunicativa'),
+                description=_lesson['description'],phrases=_phrases,
+                questions=([f'Explica con tus palabras dos expresiones de «{_lesson["title"]}».',
+                    'Utiliza esas expresiones en dos frases nuevas.',
+                    'Escribe un intercambio breve en el que utilices ese vocabulario.'] if _vocab else
+                    [q['prompt'] for q in _lesson['questions'][:3]])))
+    for _lesson in _lessons:
+        for _index,_q in enumerate(_lesson['questions']):
+            if sum(g['level']==_level for g in GRAMMAR)>=50:break
+            GRAMMAR.append(dict(id='repaso_'+_lesson['id']+'_'+str(_index),level=_level,
+                prompt=_q['prompt']+' Escribe la opción correcta: '+' / '.join(_q['options']),
+                answer=_q['options'][_q['answer']],explanation=_q['explanation']))

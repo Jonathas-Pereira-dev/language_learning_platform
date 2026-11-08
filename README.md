@@ -25,7 +25,9 @@ deactivate
 
 O script cria a `.venv` caso necessário. Não exige instalação de pacotes: HTTP, SQLite e autenticação utilizam a biblioteca padrão do Python. HTML, CSS e JavaScript não exigem build ou CDN.
 
-## Recursos implementados
+Consulte [CONFIGURACAO.md](CONFIGURACAO.md) para os novos acessos de aluno e professor, diagnóstico A1–C2, atividades, mensagens, configuração de IA e recuperação de senha. As descrições abaixo documentam o piloto original; a configuração atual está nesse guia.
+
+## Recursos do piloto original
 
 - Biblioteca **Áudios por tema** com faixas independentes de saudações, despedidas e perguntas/respostas sobre bem-estar e sentimentos. Cada faixa e cada frase podem ser ouvidas em duas vozes selecionáveis. Sugestões de voz feminina/masculina usam nomes conhecidos; o navegador não fornece gênero, então a associação pode ser ajustada manualmente. Se não houver uma segunda voz espanhola instalada, a interface informa a limitação sem simular uma voz com mudança de tom.
 
