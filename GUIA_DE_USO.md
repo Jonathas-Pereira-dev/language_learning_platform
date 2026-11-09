@@ -15,6 +15,14 @@ Esta instalación es local. El alumnado en otros equipos necesita una instalaci�
 
 ## Accesos y colores
 
+### Acceso por invitación
+
+En esta instalación, el responsable prepara las cuentas y asigna el perfil de docente o estudiante. No hay registro público ni selección de perfil al entrar: se inicia sesión con correo y contraseña.
+
+Para el primer acceso, el responsable entrega a cada persona su enlace privado de `data/acessos-primeira-senha.txt`. Anteponer el origen HTTPS actual del túnel a la ruta `/#reset=…`. Cada enlace permite crear y confirmar la contraseña, caduca a los siete días y solo puede utilizarse una vez. No compartir el archivo completo: contiene los accesos de ambas personas. Los enlaces no se envían por correo automáticamente.
+
+Tras guardar la contraseña, iniciar sesión con el correo preparado. El alumno ya está vinculado a su docente. El nombre inicial es genérico; el estudiante puede actualizarlo en Perfil personal.
+
 El menú del docente contiene únicamente **Mi grupo**, **Actividades para entregar** y **Diccionario**. Las demás secciones de estudio son exclusivas del acceso del estudiante.
 
 - **Estudiante:** rojo y tonos cálidos. Trabaja sin notas numéricas.

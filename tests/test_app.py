@@ -45,6 +45,28 @@ class FlowTests(unittest.TestCase):
     def register(self, email):
         self.assertEqual(self.request('/api/register', {'name':'Ana','email':email,'password':'senha-segura123'})[0],200)
 
+    def test_invited_password_activation(self):
+        import hashlib
+        from datetime import timedelta
+        token = 'private-first-access-token'
+        with app.connect() as con:
+            uid = con.execute('INSERT INTO users(name,email,password,role) VALUES(?,?,?,?)',
+                              ('Invited', 'invited@example.com', app.password_hash('unavailable-password'), 'teacher')).lastrowid
+            con.execute('INSERT INTO resets VALUES(?,?,?)',
+                        (hashlib.sha256(token.encode()).hexdigest(), uid,
+                         (app.now() + timedelta(days=1)).isoformat()))
+            con.execute("INSERT OR REPLACE INTO access_settings VALUES('registration_closed','1')")
+        try:
+            self.assertEqual(self.request('/api/register', {'name':'Other','email':'blocked@example.com','password':'password123'})[0], 403)
+            self.assertEqual(self.request('/api/reset-password', {'token':'wrong','password':'new-password123'})[0], 400)
+            self.assertEqual(self.request('/api/reset-password', {'token':token,'password':'new-password123'})[0], 200)
+            self.assertEqual(self.request('/api/reset-password', {'token':token,'password':'another-password123'})[0], 400)
+            self.assertEqual(self.request('/api/login', {'email':'invited@example.com','password':'new-password123'})[0], 200)
+            self.assertEqual(self.request('/api/state')[1]['profile']['role'], 'teacher')
+        finally:
+            with app.connect() as con:
+                con.execute("DELETE FROM access_settings WHERE key='registration_closed'")
+
     def diagnose(self):
         student_cookie=self.cookie
         email=self.request('/api/state')[1]['profile']['email']

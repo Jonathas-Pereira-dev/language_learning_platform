@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920">
+<defs><style>text{font-family:Arial,sans-serif;fill:#183047}.title{font-size:32px;font-weight:700}.sub{font-size:19px;fill:#52677a}.h{font-size:22px;font-weight:700}.t{font-size:18px}.small{font-size:16px}.box{fill:white;stroke:#b8cad8;stroke-width:2}.line{stroke:#287ba0;stroke-width:3;fill:none;marker-end:url(#arrow)}</style><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#287ba0"/></marker></defs>
+<rect width="1400" height="920" fill="#f1f6fa"/>
+<text x="55" y="60" class="title">Rumbo al español • arquitetura da plataforma</text>
+<text x="55" y="95" class="sub">Baseado no código do projeto • configuração de hospedagem externa não verificada</text>
+<text x="55" y="145" class="h">HOJE — instalação local</text>
+<rect x="45" y="167" width="1310" height="355" rx="22" fill="#e1edf5" stroke="#a9c2d5"/>
+<text x="70" y="204" class="h">SEU PC WINDOWS</text>
+<rect x="75" y="235" width="300" height="145" rx="14" class="box"/>
+<text x="95" y="269" class="h">Navegador no seu PC</text>
+<text x="95" y="304" class="t">Interface: HTML, CSS e JS</text>
+<text x="95" y="336" class="small">static/ • voz pelo navegador</text>
+<path d="M375 308 H465" class="line"/>
+<rect x="475" y="235" width="375" height="145" rx="14" class="box"/>
+<text x="495" y="269" class="h">Servidor Python • app.py</text>
+<text x="495" y="304" class="t">HTTP + APIs + autenticação</text>
+<text x="495" y="336" class="t">127.0.0.1:8000 • acesso local</text>
+<path d="M850 308 H940" class="line"/>
+<rect x="950" y="235" width="375" height="145" rx="14" class="box"/>
+<text x="970" y="269" class="h">Banco SQLite no seu disco</text>
+<text x="970" y="304" class="t">data/fluentia.sqlite3</text>
+<text x="970" y="336" class="small">Contas, progresso, mensagens e áudios</text>
+<text x="80" y="424" class="t">Monólito modular: interface e APIs servidas pelo mesmo processo Python.</text>
+<text x="80" y="456" class="t">Serviços externos: Wikcionário e notícias; IA, SMTP, Twilio e YouTube dependem de configuração.</text>
+<text x="80" y="488" class="t" style="fill:#a34025">Outros computadores não acessam o endereço 127.0.0.1 do seu PC.</text>
+<text x="55" y="575" class="h">PILOTO PARA 5 PESSOAS — proposta, ainda não implantada</text>
+<rect x="55" y="610" width="270" height="130" rx="14" class="box"/>
+<text x="75" y="650" class="h">5 usuários remotos</text>
+<text x="75" y="685" class="t">Celular ou computador</text>
+<text x="75" y="716" class="small">Cada pessoa com sua conta</text>
+<path d="M325 675 H405" class="line"/>
+<rect x="415" y="610" width="360" height="130" rx="14" class="box"/>
+<text x="435" y="650" class="h">HTTPS + acesso restrito</text>
+<text x="435" y="685" class="t">Cloudflare Tunnel + Access</text>
+<text x="435" y="716" class="small">Autorizar os participantes do piloto</text>
+<path d="M775 675 H855" class="line"/>
+<rect x="865" y="610" width="480" height="130" rx="14" class="box"/>
+<text x="885" y="650" class="h">Seu PC: aplicação + SQLite</text>
+<text x="885" y="685" class="t">Túnel → http://127.0.0.1:8000</text>
+<text x="885" y="716" class="small">PC ligado, internet ativa e processo em execução</text>
+<rect x="55" y="775" width="1290" height="100" rx="14" fill="#fff4dd" stroke="#dfbd72"/>
+<text x="75" y="808" class="t">Antes de liberar: cookie Secure, proteção de login, controle de cadastro e backup fora do PC.</text>
+<text x="75" y="839" class="t">Para operação contínua: hospedar aplicação + banco em servidor com disco persistente e HTTP de produção.</text>
+</svg>

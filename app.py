@@ -7,6 +7,8 @@ import json
 import mimetypes
 import os
 import secrets
+import threading
+import time
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from http.cookies import SimpleCookie
@@ -22,6 +24,20 @@ from progression import allowed
 ROOT = Path(__file__).parent
 DB = Path(os.environ.get('FLUENTIA_DB', str(ROOT / 'data' / 'fluentia.sqlite3')))
 PUBLIC = ROOT / 'static'
+LOGIN_ATTEMPTS = {}
+LOGIN_LOCK = threading.Lock()
+
+def login_allowed(email):
+    current = time.monotonic()
+    with LOGIN_LOCK:
+        for key in list(LOGIN_ATTEMPTS):
+            if current - LOGIN_ATTEMPTS[key][0] >= 300:
+                del LOGIN_ATTEMPTS[key]
+        start, count = LOGIN_ATTEMPTS.get(email, (current, 0))
+        if count >= 10 or (email not in LOGIN_ATTEMPTS and len(LOGIN_ATTEMPTS) >= 1000):
+            return False
+        LOGIN_ATTEMPTS[email] = (start, count + 1)
+        return True
 
 def now():
     return datetime.now(timezone.utc)
@@ -47,6 +63,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS reviews(id INTEGER PRIMARY KEY, user_id INTEGER REFERENCES users(id), front TEXT, back TEXT, due TEXT, interval INTEGER DEFAULT 0, UNIQUE(user_id,front));
         CREATE TABLE IF NOT EXISTS notes(user_id INTEGER REFERENCES users(id), lesson TEXT, text TEXT, PRIMARY KEY(user_id,lesson));
         CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY, user_id INTEGER REFERENCES users(id), kind TEXT, payload TEXT, created TEXT);
+        CREATE TABLE IF NOT EXISTS access_settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
         ''')
         mentoring.migrate(con)
 
@@ -128,6 +145,8 @@ class Handler(BaseHTTPRequestHandler):
                 email = str(data.get('email', '')).strip().lower()
                 password = str(data.get('password', ''))
                 if path.endswith('register'):
+                    if con.execute("SELECT 1 FROM access_settings WHERE key='registration_closed' AND value='1'").fetchone():
+                        return self.reply(403, {'error': 'El registro está cerrado. Utiliza tu enlace personal para crear tu contraseña.'})
                     name = str(data.get('name', '')).strip()
                     if not name or len(name) > 80 or '@' not in email or len(email) > 254 or not 8 <= len(password) <= 256:
                         return self.reply(400, {'error': 'Indica nombre, correo y contraseña de 8 a 256 caracteres.'})
@@ -140,6 +159,8 @@ class Handler(BaseHTTPRequestHandler):
                     except sqlite3.IntegrityError:
                         return self.reply(409, {'error': 'Correo ya registrado. Inicia sesión.'})
                 else:
+                    if not login_allowed(email):
+                        return self.reply(429, {'error': 'Demasiados intentos. Espera cinco minutos antes de volver a entrar.'})
                     found = con.execute('SELECT * FROM users WHERE email=?', (email,)).fetchone()
                     if len(password) > 256 or not found or not hmac.compare_digest(found['password'], password_hash(password, found['password'].split(':')[0])):
                         return self.reply(401, {'error': 'Correo o contraseña incorrectos.'})
@@ -149,7 +170,7 @@ class Handler(BaseHTTPRequestHandler):
                 session = secrets.token_urlsafe(32)
                 con.execute('DELETE FROM sessions WHERE expires<?', (now().isoformat(),))
                 con.execute('INSERT INTO sessions VALUES(?,?,?)', (session, uid, (now() + timedelta(days=7)).isoformat()))
-                return self.reply(200, {'ok': True}, 'session=' + session + '; HttpOnly; SameSite=Strict; Path=/; Max-Age=604800')
+                return self.reply(200, {'ok': True}, 'session=' + session + '; HttpOnly; SameSite=Strict; Path=/; Max-Age=604800' + ('; Secure' if os.getenv('FLUENTIA_SECURE_COOKIE') == '1' else ''))
             if not user:
                 return self.reply(401, {'error': 'Inicia sesión para continuar.'})
             uid = user['id']
